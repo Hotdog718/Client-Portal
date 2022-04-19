@@ -1,0 +1,20 @@
+<%- include('_head', { title: "Patient Info" }) %>
+<div class="container">
+	<div class="col-sm-8 col-sm-offset-2">
+		<div class="row">
+			<div class="card large">
+				<div class="section title">My Info</div>
+				<div class="section">
+					Height <%- height %>lb<br>
+					Weight <%- weight %>cm<br>
+					<% if (hasHadSurgery) { %>Has had at least one surgury in the past<br><% } %>
+					Bloodtype <%- bloodtype %><br>
+				</div>
+				<% if (additionalNotes) { %>
+				<div class="section"><%- additionalNotes %></div>
+				<% } %>
+			</div>
+		</div>
+	</div>
+</div>
+<%- include('_tail') %>
