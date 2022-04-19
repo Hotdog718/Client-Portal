@@ -1,0 +1,30 @@
+<%- include('_head', { title: "Create Appointment" }) %>
+<div class="container">
+  <div class="col-sm-8 col-sm-offset-2">
+    <form action="/create-appointment" method="POST">
+		<fieldset>
+			<legend>Request Appointment with Doctor</legend>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Doctor</label></div>
+				<div class="col-sm-12 col-md"><input type="text" name="doctor" placeholder="name" style="width:95%;"></div>
+			</div>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Date</label></div>
+				<div class="col-sm-12 col-md"><input type="date" name="date" style="width:95%;"></div>
+			</div>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Time</label></div>
+				<div class="col-sm-12 col-md"><input type="time" name="time" style="width:95%;"></div>
+			</div>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Reason for visit</label></div>
+				<div class="col-sm-12 col-md"><input type="text" name="reason" placeholder="insert reason here" style="width:95%;"></div>
+			</div>
+		</fieldset>
+    </form>
+    <div class="button-group">
+     	<button onclick="document.forms[0].submit();">Submit</button>
+    </div>
+  </div>
+</div>
+<%- include('_tail') %>
