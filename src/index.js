@@ -34,7 +34,12 @@ app.use(session({
 
 app.get('/', async (req, res) => {
 	if(req.session?.login) {
-		res.render('dashboard', { auth: req.session.login});
+		if(req.session.login.toString().padStart(10, '0').startsWith('1')) {
+			res.render('doctor-dashboard', { auth: req.session.login });
+		}
+		else {
+			res.render('dashboard', { auth: req.session.login });
+		}
 		return;
 	}
 	res.render('index');
@@ -87,6 +92,7 @@ app.all('/login', async (req, res) => {
 	res.redirect('/');
 });
 
+// Logged in user pages
 app.use((req, res, next) => {
 	if(!req.session.login) {
 		res.redirect('/');
@@ -94,10 +100,29 @@ app.use((req, res, next) => {
 	}
 
 	next();
-})
+});
+
+app.use('/logout', (req, res) => {
+	delete req.session.login;
+
+	res.redirect('/');
+});
+
+app.get('/chat', async (req, res) => {
+	res.render('chat', { auth: req.session.login });
+});
+
+// Patient Web Pages
+app.all('/request-refill', async (req, res) => {
+	if(req.method !== 'POST') {
+		return res.render('request-refill', { auth: req.session.login });
+	}
+	
+	res.redirect('/');
+});
 
 app.get('/my-info', async (req, res) => {
-	const result = await db.run('SELECT bloodtype, height, weight, hasHadSurgery, additionalNotes FROM medicalinfo WHERE userID = ?', req.session.login)
+	const result = await db.run('SELECT fname, lname, bloodtype, height, weight, hasHadSurgery, additionalNotes FROM medicalinfo JOIN patientdata USING(userID) WHERE userID = ?', req.session.login)
 
 	if(!result || result.length <= 0) {
 		res.redirect('/?message=No\x20medical\x20info\x20found');
@@ -106,7 +131,7 @@ app.get('/my-info', async (req, res) => {
 	const medicial_info = result[0];
 
 	res.render('patient-info', { auth: req.session.login, ...medicial_info });
-})
+});
 
 app.all('/create-appointment', async (req, res) => {
 	if(req.method !== 'POST') {
@@ -116,10 +141,63 @@ app.all('/create-appointment', async (req, res) => {
 	res.redirect('/?message=appointment created, I guess');
 });
 
-app.use('/logout', (req, res) => {
-	delete req.session.login;
+app.all('/incident-form', async (req, res) => {
+	if(req.method !== 'POST') {
+		return res.render('incident-form', { auth: req.session.login });
+	}
+	
+	res.redirect('/incident-form');
+});
 
+// Doctor Pages
+app.use((req, res, next) => {
+	if(!req.session?.login?.toString().padStart(10, '0').startsWith('1')) {
+		res.redirect('/');
+		return;
+	}
+
+	next();
+});
+
+app.all('/incident-response', async (req, res) => {
+	if(req.method !== 'POST') {
+		// Would need to retrieve incidents from DB
+		return res.render('incident-response', { auth: req.session.login });
+	}
+	
 	res.redirect('/');
 });
 
-app.listen(PORT);
+app.all('/incidents/:incidentID', async (req, res) => {
+	if(req.method !== 'POST') {
+
+		return;
+	}
+
+	res.redirect('/incident-response')
+})
+
+app.all('/patient-refills', async (req, res) => {
+	if(req.method !== 'POST') {
+		return res.render('refill-ack', { auth: req.session.login });
+	}
+
+	// Do something with form data
+	
+	res.redirect('/');
+});
+
+app.get('/patient-info', async (req, res) => {
+	const patients = await db.run('SELECT fname, lname, bloodtype, height, weight, hasHadSurgery, additionalNotes FROM medicalinfo JOIN patientdata using(userID)')
+
+	res.render('view-patient-info', { auth: req.session.login, patients });
+})
+
+app.get('/doctor-appointments', (req, res) => {
+	// Fetch appointments from database
+
+	res.render('appointments', { auth: req.session.login });
+});
+
+// Listen on given port
+app.listen(PORT, () => `Listening on port ${PORT}`);
