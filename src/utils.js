@@ -44,9 +44,9 @@ const sha256 = (message) => {
 }
 
 const generateRandomID = () => {
-	const id = crypto.randomBytes(5).toString('hex');
+	const id = crypto.randomBytes(5).toString();
 	
-	return id;
+	return id.substring(1);
 }
 
 module.exports = {
