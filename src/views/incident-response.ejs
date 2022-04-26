@@ -1,21 +1,12 @@
-<%- include('_head', { title: "Dashboard" }) %>
+<%- include('_head', { title: "Incident Response" }) %>
 <div class="container">
 	<div class="col-sm-8 col-sm-offset-2 rounded" style="background-color: #CCCCCC !important;">
-		<div class="row">
-			<div class="col-sm button"><a href="">Incident 1</a></div>
-			<div class="col-sm button"><a href="">Resolve</a></div>
-		</div>
-		<div class="row">
-			<div class="col-sm button"><a href="">Incident 2</a></div>
-			<div class="col-sm button"><a href="">Resolve</a></div>
-		</div>
-		<div class="row">
-			<div class="col-sm button"><a href="">Incident 3</a></div>
-			<div class="col-sm button"><a href="">Resolve</a></div>
-		</div>
-		<div class="row">
-			<div class="col-sm button"><a href="/doctor">Back</a></div>
-		</div>
+		<% if(incidents.length === 0) { %>
+			<div class="row">No incidents found</div>
+		<% } %>
+		<% for(const incident of incidents) { %>
+		<%- include('_incident', { ...incident }) %>
+		<% } %>
 	</div>
 </div>
 <%- include('_tail') %>
