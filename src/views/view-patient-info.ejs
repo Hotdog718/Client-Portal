@@ -1,21 +1,9 @@
-<%- include('_head', { title: "Patient Info" }) %>
+<%- include('_head', { title: "View Patient Info" }) %>
 <div class="container">
 	<div class="col-sm-8 col-sm-offset-2">
 		<% for (const patient of patients) { %>
 		<div class="row">
 			<%- include('_patient-info', { ...patient }) %>
-			<!-- <div class="card large">
-				<div class="section title"><%- patient.lname %>, <%- patient.fname %> Info</div>
-				<div class="section">
-					Height: <%- patient.height %>lb<br>
-					Weight: <%- patient.weight %>cm<br>
-					<% if (patient.hasHadSurgery) { %>Has had at least one surgury in the past<br><% } %>
-					Bloodtype: <%- patient.bloodtype ?? 'Unknown' %><br>
-				</div>
-				<% if (patient.additionalNotes) { %>
-				<div class="section"><%- patient.additionalNotes %></div>
-				<% } %>
-			</div>-->
 		</div>
 		<% } %>
 	</div>
