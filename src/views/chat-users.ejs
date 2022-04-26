@@ -1,0 +1,12 @@
+<%- include('_head', { title: "Chat" }) %>
+<div class="container">
+	<div class="col-sm-8 col-sm-offset-2" style="background-color: #CCCCCC !important;">
+		<% if(users.length === 0) { %>
+			<div class="row">No users found.</div>
+		<% } %>
+		<% for(const user of users) { %>
+			<div class="row"><a class="button" style="width: 95%" href="/chat/user/<%- user.userID %>">Chat with <%- user.username %></a></div>
+		<% } %>
+	</div>
+</div>
+<%- include('_tail') %>

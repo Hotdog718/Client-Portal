@@ -1,0 +1,12 @@
+<%- include('_head', { title: "Refill Requests" }) %>
+<div class="container">
+	<div class="col-sm-8 col-sm-offset-2 rounded" style="background-color: #CCCCCC !important;">
+		<% if(refills.length === 0) { %>
+			<div class="row">No prescriptionsfound</div>
+		<% } %>
+		<% for(const prescription of refills) { %>
+		<%- include('_prescription', { ...prescription }) %>
+		<% } %>
+	</div>
+</div>
+<%- include('_tail') %>

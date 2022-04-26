@@ -1,0 +1,30 @@
+<%- include('_head', { title: "Report Incident" }) %>
+<div class="container">
+  <div class="col-sm-8 col-sm-offset-2">
+    <form action="/incident-form" method="POST">
+		<fieldset>
+			<legend>Incident Response Form</legend>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Type of Incident</label></div>
+				<div class="col-sm-12 col-md"><input type="text" name="type" style="width:95%;"></div>
+			</div>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Date of Incident</label></div>
+				<div class="col-sm-12 col-md"><input type="date" name="date" style="width:95%;"></div>
+			</div>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Time of Incident</label></div>
+				<div class="col-sm-12 col-md"><input type="time" name="time" style="width:95%;"></div>
+			</div>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Incident Information</label></div>
+				<div class="col-sm-12 col-md"><input type="text" name="information" style="width:95%;"></div>
+			</div>
+		</fieldset>
+    </form>
+    <div class="button-group">
+     	<button onclick="document.forms[0].submit();">Submit</button>
+    </div>
+  </div>
+</div>
+<%- include('_tail') %>

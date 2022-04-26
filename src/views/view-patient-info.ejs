@@ -1,0 +1,11 @@
+<%- include('_head', { title: "View Patient Info" }) %>
+<div class="container">
+	<div class="col-sm-8 col-sm-offset-2">
+		<% for (const patient of patients) { %>
+		<div class="row">
+			<%- include('_patient-info', { ...patient }) %>
+		</div>
+		<% } %>
+	</div>
+</div>
+<%- include('_tail') %>

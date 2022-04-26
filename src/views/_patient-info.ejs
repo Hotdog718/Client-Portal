@@ -1,0 +1,12 @@
+<div class="card large">
+	<div class="section title"><%- lname %>, <%- fname %>'s Info</div>
+	<div class="section">
+		Height <%- height %>lb<br>
+		Weight <%- weight %>cm<br>
+		<% if (hasHadSurgery) { %>Has had at least one surgury in the past<br><% } %>
+		Bloodtype <%- bloodtype ?? 'Unknown' %><br>
+	</div>
+	<% if (additionalNotes) { %>
+	<div class="section"><%- additionalNotes %></div>
+	<% } %>
+</div>

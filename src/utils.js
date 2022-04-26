@@ -46,11 +46,16 @@ const sha256 = (message) => {
 const generateRandomID = () => {
 	const id = crypto.randomBytes(5).toString('hex');
 	
-	return id;
+	const val = parseInt(id, 16);
+
+	return val.toString(10).substring(1, 10);
 }
+
+const isDoctor = (login) => login?.toString().padStart(10, '0').startsWith('1');
 
 module.exports = {
 	Database,
 	sha256,
-	generateRandomID
+	generateRandomID,
+	isDoctor
 };

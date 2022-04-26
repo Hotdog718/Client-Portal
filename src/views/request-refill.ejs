@@ -1,0 +1,32 @@
+<%- include('_head', { title: "Request a Refill" }) %>
+<div class="container">
+  <div class="col-sm-8 col-sm-offset-2">
+    <form action="/request-refill" method="POST">
+		<fieldset>
+			<legend>Request Prescription Refill</legend>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Prescription</label></div>
+				<div class="col-sm-12 col-md">
+					<select name="prescription" style="width: 95%;">
+						<% if (patientPrescriptions.length == 0) { %>
+							<option value="-1">No Prescriptions found</option>
+						<% } %>
+						<% for(const prescription of patientPrescriptions) { %>
+							<option value="<%- prescription.prescriptionNum %>"><%- prescription.prescriptionName %>  (<%- prescription.username %>)</option>
+						<% } %>
+					</select>
+				</div>
+			</div>
+			<div class="row responsive-label">
+				<div class="col-sm-12 col-md-2"><label>Reason for Refill</label></div>
+				<div class="col-sm-12 col-md"><input type="text" name="reason_refill" style="width:95%;"></div>
+			</div>
+		</fieldset>
+    </form>
+    <div class="button-group">
+     	<button onclick="document.forms[0].submit();">Request</button>
+		 <div class="col-sm button"><a href="/">Back</a></div>
+    </div>
+  </div>
+</div>
+<%- include('_tail') %>

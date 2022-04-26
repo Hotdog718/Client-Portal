@@ -1,0 +1,12 @@
+<%- include('_head', { title: "Appointments" }) %>
+<div class="container">
+	<div class="col-sm-8 col-sm-offset-2">
+		<% if(appointments.length === 0) { %>
+		<div class="row">No Appointments found</div>
+		<% } %>
+		<% for(const appointment of appointments) { %>
+			<%- include('_appointment-card', { ...appointment }) %>
+		<% } %>
+	</div>
+</div>
+<%- include('_tail') %>
