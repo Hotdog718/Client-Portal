@@ -1,5 +1,19 @@
 <div class="row">
-	<div class="col-sm button"><a href=""><%- incident_num %></a></div>
-	<div class="col-sm button"><a href="">Resolve</a></div>
-	<div class="col-sm button"><a href="">Reject</a></div>
+	<form action="/incident-response/<%- incidentID %>" method="POST" style="width: 95%;">
+		<fieldset>
+			<legend>Incident #<%- incidentID %></legend>
+			<div class="row responsive-label">
+				<p><%- content %></p>
+			</div>
+			<div class="row responsive-label">
+				<p>Time: <%- datetimeOfIncident %></p>
+			</div>
+			<div class="row responsive-label">
+				<label for="resolve">Resolve</label>
+				<input type="radio" name="resolve" value="resolve" oninput="this.form.submit()" required>
+				<label for="resolve">Reject</label>
+				<input type="radio" name="resolve" value="reject" oninput="this.form.submit()" required>
+			</div>
+		</fieldset>
+	</form>
 </div>
