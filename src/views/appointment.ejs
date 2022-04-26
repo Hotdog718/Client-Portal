@@ -6,7 +6,16 @@
 			<legend>Request Appointment with Doctor</legend>
 			<div class="row responsive-label">
 				<div class="col-sm-12 col-md-2"><label>Doctor</label></div>
-				<div class="col-sm-12 col-md"><input type="text" name="doctor" placeholder="name" style="width:95%;"></div>
+				<div class="col-sm-12 col-md-2" style="width: 95%;">
+					<select name="doctor" style="width: 95%;">
+						<% if (doctors.length == 0) { %>
+							<option value="-1">No Doctors found</option>
+						<% } %>
+						<% for(const doctor of doctors) { %>
+							<option value="<%- doctor.userID %>"><%- doctor.username %></option>
+						<% } %>
+					</select>
+				</div>
 			</div>
 			<div class="row responsive-label">
 				<div class="col-sm-12 col-md-2"><label>Date</label></div>
