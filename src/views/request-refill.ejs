@@ -1,4 +1,4 @@
-<%- include('_head', { title: "Create Appointment" }) %>
+<%- include('_head', { title: "Request a Refill" }) %>
 <div class="container">
   <div class="col-sm-8 col-sm-offset-2">
     <form action="/request-refill" method="POST">
@@ -6,19 +6,20 @@
 			<legend>Request Prescription Refill</legend>
 			<div class="row responsive-label">
 				<div class="col-sm-12 col-md-2"><label>Prescription</label></div>
-				<div class="col-sm-12 col-md"><input type="text" name="prescription" style="width:95%;"></div>
-			</div>
-			<div class="row responsive-label">
-				<div class="col-sm-12 col-md-2"><label>Reason for Prescription</label></div>
-				<div class="col-sm-12 col-md"><input type="text" name="reason-prescription" style="width:95%;"></div>
+				<div class="col-sm-12 col-md">
+					<select name="prescription" style="width: 95%;">
+						<% if (patientPrescriptions.length == 0) { %>
+							<option value="-1">No Prescriptions found</option>
+						<% } %>
+						<% for(const prescription of patientPrescriptions) { %>
+							<option value="<%- prescription.prescriptionNum %>"><%- prescription.prescriptionName %>  (<%- prescription.username %>)</option>
+						<% } %>
+					</select>
+				</div>
 			</div>
 			<div class="row responsive-label">
 				<div class="col-sm-12 col-md-2"><label>Reason for Refill</label></div>
-				<div class="col-sm-12 col-md"><input type="text" name="reason-refill" style="width:95%;"></div>
-			</div>
-			<div class="row responsive-label">
-				<div class="col-sm-12 col-md-2"><label>Other Information</label></div>
-				<div class="col-sm-12 col-md"><input type="text" name="time" style="width:95%;"></div>
+				<div class="col-sm-12 col-md"><input type="text" name="reason_refill" style="width:95%;"></div>
 			</div>
 		</fieldset>
     </form>
