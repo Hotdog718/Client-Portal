@@ -1,36 +1,12 @@
-<%- include('_head', { title: "Patient Info" }) %>
+<%- include('_head', { title: "Appointments" }) %>
 <div class="container">
 	<div class="col-sm-8 col-sm-offset-2">
-		<div class="row">
-			<div class="card large">
-				<div class="section title">Appointment</div>
-				<div class="section">
-					<p>Patient: Doe, John</p>
-					<p>Date: 4/20/22 at 2:00pm</p>
-					<p>Reason: Regular Checkup</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="card large">
-				<div class="section title">Appointment</div>
-				<div class="section">
-					<p>Patient: Dumpty, Humpty</p>
-					<p>Date: 4/20/22 at 12:00pm</p>
-					<p>Reason: Fell off of a wall</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="card large">
-				<div class="section title">Appointment</div>
-				<div class="section">
-					<p>Patient: Mama, Joe</p>
-					<p>Date: 4/20/22 at 11:00am</p>
-					<p>Reason: It happened again...</p>
-				</div>
-			</div>
-		</div>
+		<% if(appointments.length === 0) { %>
+		<div class="row">No Appointments found</div>
+		<% } %>
+		<% for(const appointment of appointments) { %>
+			<%- include('_appointment-card', { ...appointment }) %>
+		<% } %>
 	</div>
 </div>
 <%- include('_tail') %>
