@@ -1,0 +1,25 @@
+<div class="row">
+	<form action="/patient-refills/<%- prescriptionNum %>" method="POST" style="width: 95%;">
+		<fieldset>
+			<legend>Refill #<%- prescriptionNum %></legend>
+			<div class="row responsive-label">
+				<div><%- lname %>, <%- fname %></div>
+			</div>
+			<div class="row responsive-label">
+				<div>Prescription: <%- prescriptionName %></div>
+			</div>
+			<div class="row responsive-label">
+				<div>Time: <%- dateOfLastRefill %></div>
+			</div>
+			<div class="row responsive-label">
+				<div><%- reason %></div>
+			</div>
+			<div class="row responsive-label">
+				<label for="response">Resolve</label>
+				<input type="radio" name="response" value="accept" oninput="this.form.submit()" required>
+				<label for="response">Reject</label>
+				<input type="radio" name="response" value="reject" oninput="this.form.submit()" required>
+			</div>
+		</fieldset>
+	</form>
+</div>
