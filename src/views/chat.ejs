@@ -1,17 +1,46 @@
-<%- include('_head', { title: "Dashboard" }) %>
+<%- include('_head-socket', { title: "Chat" }) %>
 <div class="container">
 	<div class="col-sm-8 col-sm-offset-2 rounded" style="background-color: #CCCCCC !important;">
-		<div class="container" style="height: 360px">
-			<div class="row">
-				<div class="col-sm" style="height: auto; padding: 6px 12px; margin: 12px 0px; background-color: #DDDDDD;">John: Hey, when is my appointment</div>
-			</div>
+		<div class="container" id="messages" style="height: 360px">
+			<% for(const msg of messages) { %>
+				<%- include('_message', { ...msg }) %>
+			<% } %>
 		</div>
 		<div class="row fluid">
-			<div class="col-sm"><input style="width: 98.5%;" type="text" placeholder="Enter text here"></div>
+			<div class="col-sm"><input id="content" style="width: 98.5%;" type="text" placeholder="Enter text here"></div>
 		</div>
 		<div class="row">
-			<div class="col-sm button"><a href="/doctor">Back</a></div>
+			<div class="col-sm button" onclick="send()">Send</div>
+			<div class="col-sm button"><a href="/">Back</a></div>
 		</div>
 	</div>
 </div>
+<!-- <script>
+	const socket = io();
+	io.emit('join-room', { patient: '<%- isDoctor ? userID : auth %>', doctor: '<%- isDoctor ? auth : userID %>' })
+
+	socket.on('message-receive', (message) => {
+		const container = document.getElementById('messages');
+		const { sender, content } = message;
+		container.append(
+			'<div class="row">' +
+			'<div class="col-sm" style="height: auto; padding: 6px 12px; margin: 12px 0px; background-color: #DDDDDD;">' + sender + ':' + content + '</div>' +
+			'</div>');
+	});
+
+	const send = () => {
+		const content = document.getElementById('content');
+
+		if(content.value.trim().length == 0) {
+			alert('You cannot send an empty message');
+			return;
+		}
+
+		const from = '<%- auth %>';
+		const to = '<%- userID %>';
+
+		socket.emit('message', { from, to, content: content.value });
+		content.value = '';
+	}
+</script> -->
 <%- include('_tail') %>
